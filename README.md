@@ -1,118 +1,129 @@
-# Grocery Sales ETL Pipeline (Databricks + PySpark)
+# Grocery Sales ETL Pipeline using Databricks & PySpark
 
-## Project Overview
+## Project Description
 
-This project implements an **end-to-end ETL pipeline** for grocery store sales data using **Databricks, PySpark, and Delta Lake**.  
-The pipeline processes raw retail datasets and transforms them into analytics-ready datasets using the **Medallion Architecture (Bronze → Silver → Gold)**.
+This project demonstrates the development of a complete ETL pipeline for grocery sales data using Databricks, PySpark, and Delta Lake.
 
-The final output enables **sales forecasting and retail analytics** by generating aggregated sales features such as weekly sales trends, promotion impact, and holiday demand patterns.
+The objective of the pipeline is to transform raw retail datasets into structured and analytics-ready datasets by implementing the Medallion Architecture, which consists of Bronze, Silver, and Gold layers.
 
----
-
-## Dataset
-
-Dataset Source:  
-Kaggle – *Store Sales Time Series Forecasting*
-
-The dataset contains historical grocery sales data from **Corporación Favorita**, a large grocery retailer in Ecuador.
-
-Datasets used:
-
-- `train.csv` → Historical sales data
-- `stores.csv` → Store metadata
-- `transactions.csv` → Daily store transactions
-- `holidays_events.csv` → Holiday information
-- `oil.csv` → Oil price data
-
-These datasets simulate a **real-world retail analytics environment**.
+The processed data can be used for retail analytics, demand analysis, and sales forecasting by generating useful business features such as sales trends, promotion effects, and holiday demand patterns.
 
 ---
 
-## Project Architecture
+## Dataset Information
 
-The pipeline follows the **Medallion Architecture**.
+**Source:** Kaggle – Store Sales Time Series Forecasting
+
+The dataset contains historical grocery sales records from Corporación Favorita, a major grocery retailer in Ecuador.
+
+### Files used in the project
+
+| File | Description |
+|-----|-------------|
+| train.csv | Historical product sales |
+| stores.csv | Store metadata |
+| transactions.csv | Daily customer transactions |
+| holidays_events.csv | Holiday and event information |
+| oil.csv | Historical oil prices |
+
+These datasets together simulate a real-world retail analytics scenario.
+
+---
+
+## System Architecture
+
+The project follows a data lake architecture where raw data is processed and refined in multiple stages.
 
 ```
-Raw Data (Kaggle Dataset)
-        ↓
+Kaggle Dataset
+      ↓
 AWS S3 Data Lake
-        ↓
-Databricks PySpark ETL Pipeline
-        ↓
-Bronze Layer (Raw Tables)
-        ↓
-Silver Layer (Cleaned & Integrated Data)
-        ↓
-Gold Layer (Analytics & Forecasting Features)
+      ↓
+Databricks ETL Processing
+      ↓
+Bronze Layer (Raw Data)
+      ↓
+Silver Layer (Processed Data)
+      ↓
+Gold Layer (Analytics Ready Data)
+```
+
+Each layer improves the quality and usability of the data.
+
+---
+
+## Medallion Architecture
+
+### Bronze Layer – Raw Data Storage
+
+The Bronze layer contains the original data in its raw format as received from the source.
+
+#### Purpose
+
+- Preserve original datasets
+- Maintain data lineage
+- Enable traceability of transformations
+
+#### Tables
+
+```
+raw.sales_transactions
+raw.stores
+raw.transactions
+raw.holidays
+raw.oil_prices
+```
+
+#### Operations Performed
+
+- CSV file ingestion
+- Initial schema validation
+- Metadata recording
+
+---
+
+### Silver Layer – Data Cleaning & Integration
+
+The Silver layer processes the raw data to produce clean and standardized datasets.
+
+#### Key Transformations
+
+- Removing duplicate records
+- Correcting data types
+- Handling missing values
+- Joining sales data with store metadata
+- Integrating transaction data
+- Extracting date-based features
+
+#### Output Table
+
+```
+processed.sales_cleaned
 ```
 
 ---
 
-## Medallion Architecture Layers
+### Gold Layer – Analytics Ready Data
 
-### Bronze Layer (Raw Data)
+The Gold layer prepares the data for business analytics and forecasting tasks.
 
-Purpose:
-- Store raw data exactly as received
-- Preserve data lineage
+#### Generated Features
 
-Tables:
+- Weekly sales summaries
+- Promotion performance metrics
+- Holiday impact indicators
+- Store level performance metrics
+- Product family sales trends
 
-- `raw.sales_transactions`
-- `raw.stores`
-- `raw.transactions`
-- `raw.holidays`
-- `raw.oil_prices`
+#### Output Table
 
-Operations:
-
-- Raw CSV ingestion
-- Schema validation
-- Metadata tracking
+```
+analytics.sales_forecast_features
+```
 
 ---
 
-### Silver Layer (Cleaned Data)
-
-Purpose:
-- Clean and standardize datasets
-- Integrate multiple data sources
-
-Transformations:
-
-- Remove duplicate records
-- Convert data types
-- Handle missing values
-- Join sales data with store metadata
-- Join transaction data with sales records
-- Extract date-based features
-
-Output Table:
-
-- `processed.sales_cleaned`
-
----
-
-### Gold Layer (Analytics Data)
-
-Purpose:
-Generate business-ready datasets for analytics and forecasting.
-
-Features generated:
-
-- Weekly sales aggregation
-- Promotion impact metrics
-- Holiday sales indicators
-- Store performance metrics
-- Product category trends
-
-Output Table:
-
-- `analytics.sales_forecast_features`
-
----
-
-## Project Folder Structure
+## Project Directory Structure
 
 ```
 grocery-sales-etl
@@ -140,19 +151,21 @@ grocery-sales-etl
 
 ---
 
-## Pipeline Execution Flow
+## ETL Pipeline Workflow
+
+The pipeline is executed in a sequence of stages.
 
 ```
-bronze_ingestion.py
+Bronze Ingestion
         ↓
-silver_transformation.py
+Silver Data Processing
         ↓
-gold_features.py
+Gold Feature Generation
         ↓
-main_pipeline.py
+Main Pipeline Execution
 ```
 
-The `main_pipeline.py` script orchestrates the entire ETL pipeline.
+The `main_pipeline.py` script coordinates the entire workflow.
 
 ---
 
@@ -165,18 +178,20 @@ The `main_pipeline.py` script orchestrates the entire ETL pipeline.
 - AWS S3
 - Git & GitHub
 
+These tools enable scalable data processing and modern data lake architecture implementation.
+
 ---
 
-## Installation
+## Setup and Installation
 
-Clone the repository:
+### Clone the repository
 
 ```bash
 git clone https://github.com/SuhasSC/grocery-sales-etl-P2_Databricks.git
 cd grocery-sales-etl
 ```
 
-Install dependencies:
+### Install required dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -184,9 +199,9 @@ pip install -r requirements.txt
 
 ---
 
-## Running the Pipeline
+## Running the ETL Pipeline
 
-Run the ETL pipeline locally:
+To execute the pipeline locally, run:
 
 ```bash
 python main_pipeline.py
@@ -194,64 +209,62 @@ python main_pipeline.py
 
 Pipeline stages executed:
 
-1. Raw data ingestion (Bronze Layer)
-2. Data cleaning and transformation (Silver Layer)
-3. Feature engineering and aggregation (Gold Layer)
+1. Data ingestion into the Bronze layer  
+2. Data cleaning and integration in the Silver layer  
+3. Feature generation and aggregation in the Gold layer  
 
 ---
 
-## Business Insights Generated
+## Business Insights Enabled
 
-The pipeline enables several retail analytics insights.
+The processed datasets allow several useful analyses.
 
-### Sales Trends
-Identify weekly and seasonal demand patterns.
+### Sales Trend Analysis
+Understanding weekly and seasonal variations in product demand.
 
-### Store Performance
-Determine top-performing stores based on revenue.
+### Store Performance Evaluation
+Identifying stores with the highest revenue generation.
 
-### Product Category Analysis
-Identify high-demand product families.
+### Product Category Insights
+Finding product families with high customer demand.
 
-### Promotion Effectiveness
-Measure sales increase during promotional campaigns.
+### Promotion Impact Analysis
+Measuring the effect of promotional campaigns on sales.
 
-### Holiday Impact
-Analyze how holidays affect product demand.
+### Holiday Sales Patterns
+Analyzing how holidays influence purchasing behavior.
 
-### Customer Traffic Analysis
-Evaluate the relationship between store transactions and sales.
+### Customer Activity Analysis
+Studying the relationship between store transactions and product sales.
 
 ---
 
-## Future Enhancements
+## Future Improvements
 
-- Integrate real-time data ingestion
-- Build machine learning forecasting models
-- Create interactive dashboards (Power BI / Tableau)
-- Implement automated data quality monitoring
+Possible extensions to this project include:
+
+- Real-time data ingestion pipelines
+- Machine learning based sales forecasting models
+- Interactive dashboards using Power BI or Tableau
+- Automated data quality monitoring systems
 
 ---
 
 ## License
 
-This project is developed for educational and research purposes.
+This project has been created for learning and research purposes.
 
 ---
 
-## Author
-
-**Project Lead**
-
-Suhas S Chauhan  
-
-**Team Members**
-
-- Rahul Garg  
-- Manoj M D  
+## Project Contributors
+- Manoj M D
+- Suhas S Chauhan
+- Rahul Garg    
 - Revanth Sai Arcot  
 - Bhaskar Rao Kodimela  
 
-**GitHub**
+---
 
-https://github.com/SuhasSC
+## GitHub
+
+https://github.com/Manojmd1
