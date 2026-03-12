@@ -187,7 +187,7 @@ These tools enable scalable data processing and modern data lake architecture im
 ### Clone the repository
 
 ```bash
-git clone https://github.com/SuhasSC/grocery-sales-etl-P2_Databricks.git
+git clone https://github.com/Manojmd1/grocery-sales-etl-P2_Databricks.git
 cd grocery-sales-etl
 ```
 
