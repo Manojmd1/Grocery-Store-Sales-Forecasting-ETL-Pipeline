@@ -343,19 +343,13 @@ This project is developed for **educational and research purposes**.
 
 ---
 
-# Author
-
-### Project Lead
-
-**Suhas S Chauhan**
-
 ### Team Members
-
-- Rahul Garg
 - Manoj M D
+- Suhas S Chauhan
+- Rahul Garg
 - Revanth Sai Arcot
 - Bhaskar Rao Kodimela
 
 GitHub:
 
-https://github.com/SuhasSC
+https://github.com/Manojmd1
