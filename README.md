@@ -346,7 +346,6 @@ This project is developed for **educational and research purposes**.
 ### Team Members
 - Manoj M D
 - Suhas S Chauhan
-- Rahul Garg
 - Revanth Sai Arcot
 - Bhaskar Rao Kodimela
 
